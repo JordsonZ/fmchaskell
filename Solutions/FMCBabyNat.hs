@@ -39,7 +39,9 @@ isZero (S _) = O
 
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
-pred = undefined
+pred O = O
+pred (S O) = O
+pred (S(S n)) = S n
 
 -- Output: O means False, S O means True
 even :: Nat -> Nat
