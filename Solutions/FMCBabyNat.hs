@@ -114,13 +114,14 @@ n ||| m
 -- x `absDiff` y = |x - y|
 -- (Careful here: this - is the actual minus operator we know from the integers!)
 absDiff :: Nat -> Nat -> Nat
-absDiff = undefined
+absDiff n m = monus n m + monus m n
 
 (|-|) :: Nat -> Nat -> Nat
 (|-|) = absDiff
 
 factorial :: Nat -> Nat
-factorial = undefined
+factorial O = S O
+factorial (S n) = S n * factorial n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
