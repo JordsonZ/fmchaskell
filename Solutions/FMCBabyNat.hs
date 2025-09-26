@@ -131,5 +131,9 @@ sg (S _) = S O
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
-lo = 
-
+lo b O = undefined
+lo b (S O) = O
+lo b a 
+  | a == b = S O
+  | monus a b == O = O
+  | otherwise = S (lo b ( a / b ))
