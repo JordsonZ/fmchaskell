@@ -95,7 +95,12 @@ n / m
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
-(%) = undefined
+_ % O = undefined
+O % _ = O
+n % m
+  | n == m = O
+  | monus n m == O = n
+  | otherwise = monus n m % m 
 
 -- divides
 -- just for a change, we start by defining the "symbolic" operator
