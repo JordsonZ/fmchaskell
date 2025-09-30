@@ -34,23 +34,32 @@ instance Show Nat where
 
     -- zero  should be shown as O
     -- three should be shown as SSSO
-    show = undefined
+    show O = "O"
+    show (S n) = 'S' : show n
 
 instance Eq Nat where
 
-    (==) = undefined
+    O == O = True  
+    S n == S m = n == m
+    _ == _ = False
 
 instance Ord Nat where
 
-    (<=) = undefined
+    O <= _ = True
+    S _ <= O = False
+    S n <= S m = n <= m
 
     -- Ord does not REQUIRE defining min and max.
     -- Howevener, you should define them WITHOUT using (<=).
     -- Both are binary functions: max m n = ..., etc.
 
-    min = undefined
+    min O _ = O
+    min _ O = O
+    min (S n) (S m) = S (min n m) 
 
-    max = undefined
+    max O n = n
+    max n O = n
+    max (S n) (S m) = S (max n m) 
 
 
 ----------------------------------------------------------------
