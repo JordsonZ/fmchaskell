@@ -107,50 +107,74 @@ odd (S(S n)) = odd n
 
 -- addition
 (<+>) :: Nat -> Nat -> Nat
-(<+>) = undefined
+n <+> O   = n
+n <+> S m = S (n <+> m)
 
 -- This is called the dotminus or monus operator
 -- (also: proper subtraction, arithmetic subtraction, ...).
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 monus :: Nat -> Nat -> Nat
-monus = undefined
+monus n O = n
+monus O (S m) = O
+monus (S n) (S m) = monus n m 
 
 (-*) :: Nat -> Nat -> Nat
-(-*) = undefined
+(-*) = monus
 
 -- multiplication
 times :: Nat -> Nat -> Nat
-times = undefined
+times _ O = O
+times n (S O) = n
+times (S n) (S m) = S (times n m) 
 
 (<*>) :: Nat -> Nat -> Nat
 (<*>) = times
 
 -- power / exponentiation
 pow :: Nat -> Nat -> Nat
-pow = undefined
+pow _ O = S O
+pow n (S O) = n
+pow (S n) (S m) = S (pow n m)
 
 exp :: Nat -> Nat -> Nat
-exp = undefined
+exp = pow
 
 (<^>) :: Nat -> Nat -> Nat
-(<^>) = undefined
+(<^>) = pow
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
-(</>) = undefined
+_ </> O = undefined
+n </> (S O) = n
+O </> _ = O
+n </> m
+  | n == m = S O
+  | monus n m == O = O
+  | otherwise = S (monus n m </> m)
 
 -- remainder
 (<%>) :: Nat -> Nat -> Nat
-(<%>) = undefined
+_ <%> O = undefined
+O <%> _ = O
+n <%> m
+  | n == m = O
+  | monus n m == O = n
+  | otherwise = monus n m <%> m 
 
 -- euclidean division
 eucdiv :: (Nat, Nat) -> (Nat, Nat)
-eucdiv = undefined
+eucdiv (m, O) = undefined
+eucdiv (m, n)
+    | m < n     = (O, m)
+    | otherwise = let (q, r) = eucdiv (m - n, n)
+                  in (S q, r)
 
 -- divides
 (<|>) :: Nat -> Nat -> Bool
-(<|>) = undefined
+n <|> m
+  | n <%> m == O = True
+  | otherwise = False
 
 divides = (<|>)
 
@@ -159,20 +183,28 @@ divides = (<|>)
 -- x `dist` y = |x - y|
 -- (Careful here: this - is the real minus operator!)
 dist :: Nat -> Nat -> Nat
-dist = undefined
+dist n m = monus n m + monus m n
 
 (|-|) = dist
 
 factorial :: Nat -> Nat
-factorial = undefined
+factorial O = S O
+factorial (S n) = S n * factorial n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
-sg = undefined
+sg O = O
+sg (S _) = S O
+-- Nats não possui numeros negativos
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
-lo = undefined
+lo b O = undefined
+lo b (S O) = O
+lo b a 
+  | a == b = S O
+  | monus a b == O = O
+  | otherwise = S (lo b ( a </> b ))
 
 
 ----------------------------------------------------------------
