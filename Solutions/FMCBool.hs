@@ -63,13 +63,14 @@ infixr 2 \|/
 
 -- XOR (exclusive disjunction)
 (<=/=>) :: Bool -> Bool -> Bool
-(<=/=>) = undefined
+n <=/=> m  = (n || m) && not (n && m)
 
 infixr 2 <=/=>
 
 -- boolean negation
 not :: Bool -> Bool
-not = undefined
+not True = False
+not False = True
 
 -- if-then-else expression
 ifThenElse :: Bool -> a -> a -> a
