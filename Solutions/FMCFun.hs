@@ -12,13 +12,13 @@ import Prelude hiding
 
 -- curry takes a "traditional" binary function
 -- and returns its currified version
-curry :: undefined
-curry = undefined
+curry :: ((a , b) -> c) -> a -> b -> c
+curry f m n = f(m , n)
 
 -- uncurry takes a currified function
 -- and returns its "traditional" binary version
-uncurry :: undefined
-uncurry = undefined
+uncurry :: (a -> b -> c) -> (a , b) -> c 
+uncurry f(m , n) = f m n 
 
 -- flip takes a (currified) binary function
 -- and returns one that behaves the same but takes its arguments in the opposite order
