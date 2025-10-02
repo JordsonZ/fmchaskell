@@ -43,8 +43,9 @@ f $ m = f m
 
 -- iterate: figure it out by its type
 iterate :: (a -> a) -> a -> [a]
-iterate = undefined
+iterate f m = m : iterate f (f m)
 
 -- orbit
+orbit :: b -> (b -> b) -> [b]
 orbit = flip iterate
 
