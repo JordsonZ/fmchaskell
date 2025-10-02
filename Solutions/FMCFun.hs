@@ -36,6 +36,9 @@ flip f n m = f m n
 (.>) = flip (.)
 
 -- ($) takes a function and a suitable argument and applies the function to the argument
+($) :: (a -> b) -> a -> b
+f $ m = f m
+
 -- think: why would we ever want that?
 
 -- iterate: figure it out by its type
