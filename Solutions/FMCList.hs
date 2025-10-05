@@ -58,13 +58,16 @@ write [u,v]     for our u `Cons` (v `Cons` Nil)
 -}
 
 head :: [a] -> a
-head = undefined
+head (x : xs) = x
+head [] = undefined
 
 tail :: [a] -> [a]
-tail = undefined
+tail (x : xs) = xs
+tail [] = []
 
 null :: [a] -> Bool
-null = undefined
+null [] = True
+null (x : xs) = False 
 
 length :: Integral i => [a] -> i
 length = undefined
