@@ -95,7 +95,7 @@ infixr 5 ++
 
 -- (snoc is cons written backwards)
 snoc :: a -> [a] -> [a]
-snoc = undefined
+snoc x xs = xs ++ [x] 
 
 (<:) :: [a] -> a -> [a]
 (<:) = flip snoc
