@@ -13,6 +13,7 @@ import Prelude
 import qualified Prelude   as P
 import qualified Data.List as L
 import qualified Data.Char as C
+import System.Win32 (xBUTTON1, COORD (xPos))
 
 {- import qualified ... as ... ?
 
@@ -110,11 +111,26 @@ xs +++ (y:ys) = (xs +++ [y]) +++ ys
 -- (hmm?!)
 infixl 5 +++
 
--- minimum :: Ord a => [a] -> a
--- maximum :: Ord a => [a] -> a
+minimum :: Ord a => [a] -> a
+minimum [] = undefined
+minimum [x] = x
+minimum (x : xs) = min x (minimum xs)
 
--- take
--- drop
+maximum :: Ord a => [a] -> a
+maximum [] = undefined
+maximum [x] = x
+maximum (x : xs) = max x (maximum xs)
+
+take :: Int -> [a] -> [a]
+take _ [] = []
+take 0 _ = []
+take n (x : xs) = x : take (n-1) xs
+
+drop :: Int -> [a] -> [a]
+drop _ [] = []
+drop 0 xs = xs
+drop n (_ : xs) = drop (n-1) xs
+
 
 -- takeWhile
 -- dropWhile
