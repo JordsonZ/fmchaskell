@@ -158,8 +158,14 @@ init (x:xs) = x : init xs
 -- any
 -- all
 
--- and
--- or
+and :: [Bool] -> Bool
+and [] = True
+and (x:xs) = x && and xs
+
+or :: [Bool] -> Bool
+or [] = False
+or (x:xs) = x || or xs
+
 
 -- concat
 
